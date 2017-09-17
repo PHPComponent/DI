@@ -28,7 +28,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "PHPComponent\\DI\\Tests\\": "test/"
+      "PHPComponent\\DI\\Tests\\": "tests/"
     }
   }
 }
