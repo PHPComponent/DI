@@ -1,0 +1,34 @@
+{
+  "name": "php-component/di",
+  "description": "PHPComponent/DI is Dependency Injection container",
+  "keywords": [
+    "di",
+    "ioc"
+  ],
+  "minimum-stability": "stable",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "František Šitner",
+      "email": "frantisek.sitner@gmail.com",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": ">=5.5",
+    "php-component/php-code-generator": "^1.3"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^5.7.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "PHPComponent\\DI\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "PHPComponent\\DI\\Tests\\": "test/"
+    }
+  }
+}
