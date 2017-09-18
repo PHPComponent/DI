@@ -35,7 +35,7 @@ class HelpersTest extends \PHPUnit_Framework_TestCase
     public function getValues()
     {
         return array(
-            array(\Exception::class, \Throwable::class, true),
+            array(\LogicException::class, \Exception::class, true),
             array(\InvalidArgumentException::class, \LogicException::class, true),
             array(new \stdClass(), \Traversable::class, false),
             array(\stdClass::class, \Traversable::class, false),
