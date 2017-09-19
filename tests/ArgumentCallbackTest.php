@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPComponent\DI\Test;
+namespace PHPComponent\DI\Tests;
 
 use PHPComponent\DI\ArgumentCallback;
 
@@ -33,7 +33,7 @@ class ArgumentCallbackTest extends \PHPUnit_Framework_TestCase
         return array(
             array(array(ArgumentCallbackTest::class, 'getFoo')),
             array(array($this, 'getBar')),
-            array('PHPComponent\DI\Test\ArgumentCallbackTest::getFoo'),
+            array('PHPComponent\DI\Tests\ArgumentCallbackTest::getFoo'),
             array(function(){return null;}),
         );
     }

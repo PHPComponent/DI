@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPComponent\DI\Test;
+namespace PHPComponent\DI\Tests;
 
 use PHPComponent\DI\ArgumentCallback;
 use PHPComponent\DI\ContainerBuilder;

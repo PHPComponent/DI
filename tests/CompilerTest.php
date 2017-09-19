@@ -20,14 +20,14 @@ use PHPComponent\DI\PropertySetter;
 use PHPComponent\DI\Reference\MethodReference;
 use PHPComponent\DI\Reference\ServiceReference;
 use PHPComponent\DI\ServiceDefinition;
-use PHPComponent\DI\Test\Service;
-use PHPComponent\DI\Test\ServiceFactory;
-use PHPComponent\DI\Test\ServiceWithGetter;
-use PHPComponent\DI\Test\ServiceWithMethodCall;
-use PHPComponent\DI\Test\ServiceWithMethodCallOtherService;
-use PHPComponent\DI\Test\ServiceWithPublicProperty;
-use PHPComponent\DI\Test\ServiceWithStaticFactoryMethod;
-use PHPComponent\DI\Test\ServiceWithValue;
+use PHPComponent\DI\Tests\Service;
+use PHPComponent\DI\Tests\ServiceFactory;
+use PHPComponent\DI\Tests\ServiceWithGetter;
+use PHPComponent\DI\Tests\ServiceWithMethodCall;
+use PHPComponent\DI\Tests\ServiceWithMethodCallOtherService;
+use PHPComponent\DI\Tests\ServiceWithPublicProperty;
+use PHPComponent\DI\Tests\ServiceWithStaticFactoryMethod;
+use PHPComponent\DI\Tests\ServiceWithValue;
 use PHPComponent\PhpCodeGenerator\CodeFormatter;
 
 /**

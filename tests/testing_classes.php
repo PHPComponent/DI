@@ -12,7 +12,7 @@
  * @author František Šitner <frantisek.sitner@gmail.com>
  */
 
-namespace PHPComponent\DI\Test;
+namespace PHPComponent\DI\Tests;
 
 class ServiceWithTwoClasses
 {

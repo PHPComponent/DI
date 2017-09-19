@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPComponent\DI\Test\Reference;
+namespace PHPComponent\DI\Tests\Reference;
 
 use PHPComponent\DI\Reference\ServiceReference;
 
