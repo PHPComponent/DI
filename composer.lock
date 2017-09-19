@@ -4,8 +4,48 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "60139dcfaf3f9459d3c94df6563c129d",
+    "content-hash": "caecf4125fb1e15b3f91cb621e863b26",
     "packages": [
+        {
+            "name": "php-component/atomic-file",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPComponent/AtomicFile.git",
+                "reference": "402d69c99aa05226d4b49912f458c3bbb4f74b6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPComponent/AtomicFile/zipball/402d69c99aa05226d4b49912f458c3bbb4f74b6f",
+                "reference": "402d69c99aa05226d4b49912f458c3bbb4f74b6f",
+                "shasum": ""
+            },
+            "require": {
+                "php": "~5.6"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PHPComponent\\AtomicFile\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "František Šitner",
+                    "email": "frantisek.sitner@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Library for atomic operations with files",
+            "time": "2017-09-19T20:14:43+00:00"
+        },
         {
             "name": "php-component/php-code-generator",
             "version": "0.1.0",

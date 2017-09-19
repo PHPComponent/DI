@@ -10,6 +10,9 @@
 
 namespace PHPComponent\DI;
 
+use PHPComponent\AtomicFile\AtomicFileReader;
+use PHPComponent\AtomicFile\AtomicFileWriter;
+
 /**
  * @author František Šitner <frantisek.sitner@gmail.com>
  */
@@ -61,17 +64,46 @@ class ContainerLoader
         $file_mtime = filemtime($this->config_file_path);
         $last_modified_hash = md5($file_mtime);
 
-        $meta_file = $this->temp_directory.'/'.$class_name.'.php.meta';
+        $meta_file = $this->getMetaFileName($class_name);
         if(!file_exists($meta_file))
         {
-            file_put_contents($meta_file, '');
+            $meta_file_writer = new AtomicFileWriter($meta_file, true);
+            $meta_file_writer->writeToFile('');
+            $meta_file_reader = $meta_file_writer->getReader();
         }
-        $meta_file_content = file_get_contents($meta_file);
+        else
+        {
+            $meta_file_reader = new AtomicFileReader($meta_file);
+        }
+
+        $meta_file_content = $meta_file_reader->readFile();
         if($meta_file_content === '' || $meta_file_content !== $last_modified_hash)
         {
             $php_code = $this->compiler->compile($class_name);
-            file_put_contents($this->temp_directory.'/'.$class_name.'.php', $php_code->getCode($this->compiler->getCodeFormatter()));
-            file_put_contents($meta_file, $last_modified_hash);
+            $container_file_writer = new AtomicFileWriter($this->getContainerFileName($class_name), true);
+            $container_file_writer->writeToFile($php_code->getCode($this->compiler->getCodeFormatter()));
+            $meta_file_writer = $meta_file_reader->getWriter();
+            $meta_file_writer->writeToFile($last_modified_hash);
+            $container_file_writer->closeFile();
+            $meta_file_writer->closeFile();
         }
+    }
+
+    /**
+     * @param string $class_name
+     * @return string
+     */
+    private function getContainerFileName($class_name)
+    {
+        return $this->temp_directory.'/'.$class_name.'.php';
+    }
+
+    /**
+     * @param string $class_name
+     * @return string
+     */
+    private function getMetaFileName($class_name)
+    {
+        return $this->getContainerFileName($class_name).'.meta';
     }
 }
