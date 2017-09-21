@@ -51,7 +51,7 @@ class ContainerLoader
         if(!class_exists($class_name, false))
         {
             $this->generateContainer($class_name);
-            require_once $this->temp_directory.'/'.$class_name.'.php';
+            require_once $this->getContainerFileName($class_name);
         }
         return $class_name;
     }
