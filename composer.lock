@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "php-component/atomic-file",
-            "version": "0.1.2",
+            "version": "0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPComponent/AtomicFile.git",
-                "reference": "402d69c99aa05226d4b49912f458c3bbb4f74b6f"
+                "reference": "b69fd338be22a929011d5514709564fd8acd6ffd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPComponent/AtomicFile/zipball/402d69c99aa05226d4b49912f458c3bbb4f74b6f",
-                "reference": "402d69c99aa05226d4b49912f458c3bbb4f74b6f",
+                "url": "https://api.github.com/repos/PHPComponent/AtomicFile/zipball/b69fd338be22a929011d5514709564fd8acd6ffd",
+                "reference": "b69fd338be22a929011d5514709564fd8acd6ffd",
                 "shasum": ""
             },
             "require": {
@@ -44,7 +44,7 @@
                 }
             ],
             "description": "Library for atomic operations with files",
-            "time": "2017-09-19T20:14:43+00:00"
+            "time": "2017-09-23T12:52:09+00:00"
         },
         {
             "name": "php-component/php-code-generator",

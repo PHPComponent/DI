@@ -81,6 +81,7 @@ class ContainerLoader
         {
             $php_code = $this->compiler->compile($class_name);
             $container_file_writer = new AtomicFileWriter($this->getContainerFileName($class_name), true);
+            $container_file_writer->truncateFile();
             $container_file_writer->writeToFile($php_code->getCode($this->compiler->getCodeFormatter()));
             $meta_file_writer = $meta_file_reader->getWriter();
             $meta_file_writer->writeToFile($last_modified_hash);
