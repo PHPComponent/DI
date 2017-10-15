@@ -178,6 +178,19 @@ class Container implements IContainer
     /**
      * @param string $parameter
      * @param null|string $normalized_parameter
+     * @param null|string $before_parameter
+     * @param null|string $resolved_parameter
+     * @param null|string $after_parameter
+     * @return bool
+     */
+    public function containsParameter($parameter, &$normalized_parameter = null, &$before_parameter = null, &$resolved_parameter = null, &$after_parameter = null)
+    {
+        return $this->getParametersBag()->containsParameter($parameter, $normalized_parameter, $before_parameter, $resolved_parameter, $after_parameter);
+    }
+
+    /**
+     * @param string $parameter
+     * @param null|string $normalized_parameter
      * @return bool
      */
     public function isParameter($parameter, &$normalized_parameter = null)

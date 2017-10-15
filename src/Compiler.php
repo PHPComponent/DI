@@ -344,6 +344,13 @@ BODY;
         {
             $parameter = '$this->parameters[\''.$attribute_name.'\']';
         }
+        elseif($this->getContainerBuilder()->containsParameter($parameter, $normalized_parameter, $before_parameter, $resolved_parameter, $after_parameter))
+        {
+            $parameter = null;
+            if($before_parameter !== null) $parameter = $this->getCodeFormatter()->printValue($before_parameter).'.';
+            $parameter .= '$this->parameters[\''.$normalized_parameter.'\']';
+            if($after_parameter !== null) $parameter .= '.'.$this->getCodeFormatter()->printValue($after_parameter);
+        }
         else
         {
             $parameter = $this->getCodeFormatter()->printValue($parameter);

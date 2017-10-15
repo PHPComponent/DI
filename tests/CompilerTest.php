@@ -20,14 +20,6 @@ use PHPComponent\DI\PropertySetter;
 use PHPComponent\DI\Reference\MethodReference;
 use PHPComponent\DI\Reference\ServiceReference;
 use PHPComponent\DI\ServiceDefinition;
-use PHPComponent\DI\Tests\Service;
-use PHPComponent\DI\Tests\ServiceFactory;
-use PHPComponent\DI\Tests\ServiceWithGetter;
-use PHPComponent\DI\Tests\ServiceWithMethodCall;
-use PHPComponent\DI\Tests\ServiceWithMethodCallOtherService;
-use PHPComponent\DI\Tests\ServiceWithPublicProperty;
-use PHPComponent\DI\Tests\ServiceWithStaticFactoryMethod;
-use PHPComponent\DI\Tests\ServiceWithValue;
 use PHPComponent\PhpCodeGenerator\CodeFormatter;
 
 /**
@@ -170,7 +162,9 @@ class CompilerTest extends \PHPUnit_Framework_TestCase
     {
         /** @var CodeFormatter|\PHPUnit_Framework_MockObject_MockObject $code_formatter */
         $code_formatter = $this->getMockBuilder(CodeFormatter::class)
+            ->setMethods(null)
             ->getMock();
+
 
         $service_arguments = array(ServiceWithValue::class);
         $service_definition = $this->getMockBuilder(ServiceDefinition::class)
@@ -178,7 +172,7 @@ class CompilerTest extends \PHPUnit_Framework_TestCase
             ->getMock();
         $service_definition->expects($this->atLeast(1))
             ->method('getArguments')
-            ->willReturn(array('%value%'));
+            ->willReturn(array('/root/%part%/next/folder'));
         $service_definition->expects($this->atLeast(2))
             ->method('getClassName')
             ->willReturn(ServiceWithValue::class);
@@ -186,13 +180,17 @@ class CompilerTest extends \PHPUnit_Framework_TestCase
         $container_builder = $this->createContainerBuilder($parameters);
         $container_builder->expects($this->atLeast(1))
             ->method('getParameters')
-            ->willReturn(array('value' => 'test'));
+            ->willReturn(array('part' => 'path'));
+
         $container_builder->expects($this->once())
-            ->method('isParameter')
-            ->with('%value%', null)
-            ->willReturnCallback(function($parameter, &$attribute_name)
+            ->method('containsParameter')
+            ->with('/root/%part%/next/folder', null)
+            ->willReturnCallback(function($parameter, &$normalized_parameter, &$before_parameter, &$resolved_parameter, &$after_parameter)
             {
-                $attribute_name = 'value';
+                $normalized_parameter = 'part';
+                $before_parameter = '/root/';
+                $resolved_parameter = 'path';
+                $after_parameter = '/next/folder';
                 return true;
             });
         $container_builder->expects($this->atLeast(1))
@@ -203,7 +201,7 @@ class CompilerTest extends \PHPUnit_Framework_TestCase
         $container = createContainer($compiler);
         $service = $container->getService('service');
         $this->assertInstanceOf(ServiceWithValue::class, $service);
-        $this->assertSame('test', $service->getValue());
+        $this->assertSame('/root/path/next/folder', $service->getValue());
     }
 
     public function testCompilerWithStaticFactoryMethod()

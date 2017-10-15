@@ -110,11 +110,43 @@ class ParametersBag implements \Countable, \IteratorAggregate, \ArrayAccess
      */
     public function resolveParameter($parameter)
     {
-        if($this->isParameter($parameter, $parameter_key))
+        if($this->containsParameter($parameter, $normalized_parameter, $before_parameter, $resolved_parameter, $after_parameter))
         {
-            if($this->hasParameter($parameter_key)) return $this->getParameter($parameter_key);
+            return $before_parameter.$resolved_parameter.$after_parameter;
         }
+
         return $parameter;
+    }
+
+    /**
+     * @param string $parameter
+     * @param null|string $normalized_parameter
+     * @param null|string $before_parameter
+     * @param null|string $resolved_parameter
+     * @param null|string $after_parameter
+     * @return bool
+     */
+    public function containsParameter($parameter, &$normalized_parameter = null, &$before_parameter = null, &$resolved_parameter = null, &$after_parameter = null)
+    {
+        $normalized_parameter = null;
+        $before_parameter = null;
+        $resolved_parameter = null;
+        $after_parameter = null;
+
+        if(is_string($parameter))
+        {
+            if(preg_match('#(?P<before_parameter>.*)\%(?P<parameter>[^%\s]+)\%(?P<after_parameter>.*)#', $parameter, $matches))
+            {
+                if(!$this->hasParameter($matches['parameter'])) return false;
+                $normalized_parameter = $this->formatKey($matches['parameter']);
+                $resolved_parameter = $this->getParameter($matches['parameter']);
+                $before_parameter = $matches['before_parameter'];
+                $after_parameter = $matches['after_parameter'];
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -80,11 +80,23 @@ class ParametersBagTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($this->parameters_bag['second_key']);
     }
 
+    public function testContainsParameter()
+    {
+        $this->parameters_bag->addParameter('class_name', 'Foo');
+        $this->assertTrue($this->parameters_bag->containsParameter('%class_name%', $normalized_parameter, $before_parameter, $resolved_parameter, $after_parameter));
+        $this->assertSame('class_name', $normalized_parameter);
+        $this->assertSame('Foo', $resolved_parameter);
+        $this->assertFalse($this->parameters_bag->containsParameter('class_name'));
+        $this->assertFalse($this->parameters_bag->containsParameter('%class_name'));
+    }
+
     public function testResolveParameter()
     {
         $this->parameters_bag->addParameter('class.argument', 'value');
+        $this->parameters_bag->addParameter('root_path', '/path');
         $this->assertSame('value', $this->parameters_bag->resolveParameter('%class.argument%'));
         $this->assertSame('%class.secondargument%', $this->parameters_bag->resolveParameter('%class.secondargument%'));
+        $this->assertSame('/path/next/folder', $this->parameters_bag->resolveParameter('%root_path%/next/folder'));
         $this->assertTrue($this->parameters_bag->isParameter('%class.argument%', $normalized_parameter));
         $this->assertSame('class.argument', $normalized_parameter);
     }
