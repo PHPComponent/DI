@@ -87,6 +87,7 @@ class Compiler
         $container_fragment->addMethod($this->generateGetServiceByClassName());
         $container_fragment->addMethod($this->generateGetServiceKeyByClassName());
         $container_fragment->addMethod($this->generateGetServiceMethod());
+        $container_fragment->addMethod($this->generateGetParameter());
         $container_fragment->addMethod($this->generateConstructor());
 
         $php_code->addCodeFragment($container_fragment);
@@ -122,6 +123,25 @@ class Compiler
         }
         return null;
 BODY;
+        $method_fragment->setBody($body);
+        return $method_fragment;
+    }
+
+    /**
+     * @return MethodFragment
+     */
+    private function generateGetParameter()
+    {
+        $method_fragment = new MethodFragment('getParameter');
+        $method_fragment->addParameter(new ParameterFragment('key'));
+        $body = <<<'BODY'
+        if(array_key_exists($key, $this->parameters))
+        {
+            return $this->parameters[$key];
+        }
+        return null;
+BODY;
+        $method_fragment->setDocComment("@inheritdoc");
         $method_fragment->setBody($body);
         return $method_fragment;
     }
