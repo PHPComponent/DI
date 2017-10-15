@@ -140,8 +140,8 @@ class ParametersBag implements \Countable, \IteratorAggregate, \ArrayAccess
                 if(!$this->hasParameter($matches['parameter'])) return false;
                 $normalized_parameter = $this->formatKey($matches['parameter']);
                 $resolved_parameter = $this->getParameter($matches['parameter']);
-                $before_parameter = $matches['before_parameter'];
-                $after_parameter = $matches['after_parameter'];
+                $before_parameter = $matches['before_parameter'] === '' ? null : $matches['before_parameter'];
+                $after_parameter = $matches['after_parameter'] === '' ? null : $matches['after_parameter'];
                 return true;
             }
         }
